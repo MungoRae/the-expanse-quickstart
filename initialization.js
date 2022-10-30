@@ -132,7 +132,7 @@ class TheExpanseQSInitialization extends Dialog {
 
     async initializeEntities() {
 
-        let packList = this.data.module.data.flags.initializationPacks
+        let packList = this.module.flags.initializationPacks
         console.log(packList);
         for (let pack of packList) {
             console.log(pack);
@@ -145,24 +145,24 @@ class TheExpanseQSInitialization extends Dialog {
                 let folder = document.getFlag(this.moduleKey, "initialization-folder")
                 console.log(folder);
                 if (folder)
-                    document.data.update({ "folder": this.folders[document.documentName][folder].id })
-                if (document.data.flags[this.moduleKey].sort)
-                    document.data.update({ "sort": document.data.flags[this.moduleKey].sort })
+                    document.update({ "folder": this.folders[document.documentName][folder].id })
+                if (document.flags[this.moduleKey].sort)
+                    document.update({ "sort": document.flags[this.moduleKey].sort })
             }
             switch (documents[0].documentName) {
                 case "Actor":
                     ui.notifications.notify("Initializing Actors")
-                    await Actor.create(documents.map(c => c.data))
+                    await Actor.create(documents)
                     break;
                 case "Item":
                     ui.notifications.notify("Initializing Items")
-                    await Item.create(documents.map(c => c.data))
+                    await Item.create(documents)
                     break;
                 case "JournalEntry":
                     ui.notifications.notify("Initializing Journals")
-                    let createdEntries = await JournalEntry.create(documents.map(c => c.data))
+                    let createdEntries = await JournalEntry.create(documents)
                     for (let entry of createdEntries)
-                        this.journals[entry.data.name] = entry
+                        this.journals[entry.name] = entry
                     break;
             }
         }
@@ -177,9 +177,9 @@ class TheExpanseQSInitialization extends Dialog {
         for (let map of maps) {
             let folder = map.getFlag(this.moduleKey, "initialization-folder")
             if (folder)
-                map.data.update({ "folder": this.folders["Scene"][folder].id })
+                map.update({ "folder": this.folders["Scene"][folder].id })
         }
-        await Scene.create(maps.map(m => m.data)).then(sceneArray => {
+        await Scene.create(maps).then(sceneArray => {
             sceneArray.forEach(async s => {
                 let thumb = await s.createThumbnail();
                 s.update({ "thumb": thumb.thumb })
@@ -199,37 +199,37 @@ class TheExpanseQSInitializationSetup {
     static async displayFolders() {
         let array = [];
         game.folders.entities.forEach(async f => {
-            if (f.data.parent)
-                await f.setFlag("the-expanse-quickstart", "initialization-parent", game.folders.get(f.data.parent).data.name)
+            if (f.parent)
+                await f.setFlag("the-expanse-quickstart", "initialization-parent", game.folders.get(f.parent).name)
         })
         game.folders.entities.forEach(f => {
-            array.push(f.data);
+            array.push(f);
         })
         console.log(JSON.stringify(array))
     }
 
     static async setFolderFlags() {
         for (let scene of game.scenes.entities)
-            await scene.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(scene.data.folder).data.name, sort: scene.data.sort } })
+            await scene.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(scene.folder).name, sort: scene.sort } })
         for (let actor of game.actors.entities)
-            await actor.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(actor.data.folder).data.name, sort: actor.data.sort } })
+            await actor.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(actor.folder).name, sort: actor.sort } })
         for (let item of game.items.entities)
-            await item.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(item.data.folder).data.name, sort: item.data.sort } })
+            await item.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(item.folder).name, sort: item.sort } })
         for (let journal of game.journal.entities)
-            await journal.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(journal.data.folder)?.data?.name, sort: journal.data.sort } })
+            await journal.update({ "flags.the-expanse-quickstart": { "initialization-folder": game.folders.get(journal.folder)?.name, sort: journal.sort } })
     }
 
     static async setSceneNotes() {
         for (let scene of game.scenes.entities)
-            if (scene.data.journal)
-                await scene.setFlag("the-expanse-quickstart", "scene-notes", game.journal.get(scene.data.journal).data.name)
+            if (scene.journal)
+                await scene.setFlag("the-expanse-quickstart", "scene-notes", game.journal.get(scene.journal).name)
     }
 
     static async setEmbeddedEntities() {
         for (let scene of game.scenes.entities) {
-            let notes = duplicate(scene.data.notes)
+            let notes = duplicate(scene.notes)
             for (let note of notes) {
-                setProperty(note, "flags.the-expanse-quickstart.initialization-entryname", game.journal.get(note.entryId).data.name)
+                setProperty(note, "flags.the-expanse-quickstart.initialization-entryname", game.journal.get(note.entryId).name)
             }
             await scene.update({ notes: notes })
         }
