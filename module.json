@@ -2,7 +2,7 @@
   "name": "the-expanse-quickstart",
   "title": "The Expanse Quickstart",
   "description": "The quickstart for The Expanse by Green Ronin. This Module contains everything you need to run your first game of The Expanse. The Expanse system is required for this module to function",
-  "version": "1.1.0.TEST",
+  "version": "1.1.0.TEST2",
   "author": "Charlotte Hamilton",
   "authors": [
     {
@@ -70,7 +70,7 @@
     "verified": "10"
   },
   "url": "https://github.com/MungoRae/the-expanse-quickstart",
-  "manifest": "https://github.com/MungoRae/the-expanse-quickstart/releases/download/1.1.0-TEST/module.json",
-  "download": "https://github.com/MungoRae/the-expanse-quickstart/releases/download/1.1.0-TEST/1.1.0-TEST.zip"
+  "manifest": "https://github.com/MungoRae/the-expanse-quickstart/releases/download/1.1.0-TEST2/module.json",
+  "download": "https://github.com/MungoRae/the-expanse-quickstart/releases/download/1.1.0-TEST2/1.1.0-TEST2.zip"
   
 }
