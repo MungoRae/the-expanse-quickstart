@@ -108,7 +108,7 @@ class TheExpanseQSInitialization extends Dialog {
             fetch(`modules/${this.moduleKey}/initialization.json`).then(async r => r.json()).then(async json => {
                 let createdFolders = await Folder.create(json)
                 for (let folder of createdFolders)
-                    this.folders[folder.data.type][folder.data.name] = folder;
+                    this.folders[folder.type][folder.name] = folder;
 
                 for (let folderType in this.folders) {
                     for (let folder in this.folders[folderType]) {
