@@ -24,7 +24,7 @@
   "packs": [
     {
       "label": "Items (Quickstart)",
-      "entity": "Item",
+      "type": "Item",
       "name": "items-quickstart",
       "path": "packs/items-quickstart.db",
       "system": "expanse",
@@ -36,21 +36,21 @@
     },
     {
       "label": "Actors (Quickstart)",
-      "entity": "Actor",
+      "type": "Actor",
       "name": "actors-quickstart",
       "path": "packs/actors-quickstart.db",
       "system": "expanse"
     },
     {
       "label": "Journals (Quickstart)",
-      "entity": "JournalEntry",
+      "type": "JournalEntry",
       "name": "journals-quickstart",
       "path": "packs/journals-quickstart.db",
       "system": "expanse"
     },
     {
       "label": "Scenes (Quickstart)",
-      "entity": "Scene",
+      "type": "Scene",
       "name": "scenes-quickstart",
       "path": "packs/scenes-quickstart.db",
       "system": "expanse"

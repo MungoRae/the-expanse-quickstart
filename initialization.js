@@ -136,7 +136,7 @@ class TheExpanseQSInitialization extends Dialog {
         console.log(packList);
         for (let pack of packList) {
             console.log(pack);
-                    if (game.packs.get(pack).metadata.entity == "Scene")
+                    if (game.packs.get(pack).metadata.type == "Scene")
                 continue
             let documents = await game.packs.get(pack).getDocuments();
             console.log(documents);
